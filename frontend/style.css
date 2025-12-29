@@ -1,0 +1,399 @@
+/* --- RESET & FONTS --- */
+:root {
+    --primary: #3b82f6;
+    --primary-glow: #60a5fa;
+    --accent: #f43f5e;
+    --dark: #0f172a;
+    --light: #f8fafc;
+    --glass: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f1f5f9;
+    color: var(--text-main);
+    overflow-x: hidden;
+}
+
+h1, h2, h3, .logo { font-family: 'Space Grotesk', sans-serif; }
+
+/* --- LANDING PAGE STYLES --- */
+#landing-page {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    z-index: 9999;
+    transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+/* Background Image with Overlay */
+.bg-image {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background-size: cover; background-position: center;
+    z-index: -2;
+    filter: brightness(0.6);
+    transform: scale(1.1);
+    animation: zoomOut 10s ease-out forwards;
+}
+
+@keyframes zoomOut { to { transform: scale(1); } }
+
+/* Navigation on Landing */
+.landing-nav {
+    position: absolute; top: 0; width: 100%; padding: 30px 50px;
+    display: flex; justify-content: space-between; align-items: center;
+    z-index: 10;
+}
+
+.landing-nav .logo { font-size: 1.8rem; font-weight: 700; letter-spacing: -1px; }
+.dot { color: var(--primary); }
+
+.btn-glass {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    color: white; padding: 10px 25px; border-radius: 30px;
+    backdrop-filter: blur(10px); cursor: pointer;
+    transition: 0.3s;
+}
+.btn-glass:hover { background: white; color: black; }
+
+/* Hero Content */
+.landing-content { text-align: center; max-width: 800px; padding: 20px; z-index: 10; }
+
+.landing-content h1 {
+    font-size: 5rem; line-height: 1; font-weight: 700;
+    margin-bottom: 20px;
+    background: linear-gradient(to right, #fff, #94a3b8);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+.landing-content p {
+    font-size: 1.2rem; color: #cbd5e1; margin-bottom: 40px; font-weight: 300;
+}
+
+/* CTA Button */
+.cta-button {
+    background: white; color: black;
+    padding: 18px 40px; font-size: 1.1rem; font-weight: 600;
+    border: none; border-radius: 50px; cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.cta-button:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 20px 40px rgba(255, 255, 255, 0.2);
+}
+
+/* Scroll Mouse Animation */
+.scroll-indicator {
+    position: absolute; bottom: 40px;
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    font-size: 0.8rem; opacity: 0.7;
+}
+.mouse {
+    width: 26px; height: 40px; border: 2px solid white;
+    border-radius: 20px; position: relative;
+}
+.wheel {
+    width: 4px; height: 8px; background: white;
+    border-radius: 2px; position: absolute;
+    top: 6px; left: 50%; transform: translateX(-50%);
+    animation: scroll 1.5s infinite;
+}
+
+@keyframes scroll {
+    0% { top: 6px; opacity: 1; }
+    100% { top: 20px; opacity: 0; }
+}
+
+/* --- ANIMATION UTILITIES --- */
+.fade-in-down { animation: fadeInDown 1s ease forwards; opacity: 0; }
+.fade-in-up { animation: fadeInUp 1s ease forwards; opacity: 0; }
+.fade-in { animation: fadeIn 1.5s ease forwards; opacity: 0; }
+
+.delay-1 { animation-delay: 0.2s; }
+.delay-2 { animation-delay: 0.4s; }
+.delay-3 { animation-delay: 0.6s; }
+.delay-4 { animation-delay: 1s; }
+
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* --- APP INTERFACE (Modern Dashboard) --- */
+#app-interface {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    background: #f8fafc;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+header {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    position: sticky; top: 0; z-index: 100;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+nav {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1rem 2rem;
+}
+
+.nav-links { list-style: none; display: flex; gap: 30px; }
+.nav-links a {
+    text-decoration: none; color: var(--text-muted); font-weight: 500;
+    transition: 0.3s; display: flex; align-items: center; gap: 8px;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--primary); }
+
+/* --- Dropdown Logic --- */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    height: 100%; /* Ensures the hover area covers the full height of nav */
+}
+
+.dropdown-content {
+    display: none; /* Hidden by default */
+    position: absolute;
+    background-color: white;
+    min-width: 220px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    border-radius: 12px;
+    z-index: 10000; /* Ensure it sits on top of everything */
+    
+    /* THE FIX: Remove the gap */
+    top: 100%; 
+    left: 50%;
+    transform: translateX(-50%);
+    
+    padding: 10px;
+    border: 1px solid rgba(0,0,0,0.05);
+    animation: fadeInUp 0.2s ease forwards;
+}
+
+/* Little arrow on top of dropdown */
+.dropdown-content::before {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -8px;
+    border-width: 8px;
+    border-style: solid;
+    border-color: transparent transparent white transparent;
+}
+
+/* Show on Hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Dropdown Links */
+.dropdown-content a {
+    color: var(--text-main);
+    padding: 12px 15px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+    background: transparent;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f5f9;
+    color: var(--primary);
+    transform: translateX(5px); /* Small slide effect */
+}
+
+.dropdown-content i {
+    width: 20px;
+    text-align: center;
+    color: var(--primary);
+}
+/* --- DASHBOARD CARDS & HERO --- */
+main { max-width: 1200px; margin: 30px auto; padding: 0 20px; flex: 1; }
+
+.hero {
+    border-radius: 24px; padding: 80px 40px;
+    color: white; text-align: center; margin-bottom: 40px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    position: relative; overflow: hidden;
+}
+
+.hero h1 { font-size: 3.5rem; margin-bottom: 10px; }
+
+/* Modern Cards */
+.card-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.card {
+    background: white; border-radius: 20px; padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+    border: 1px solid rgba(0,0,0,0.02);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+}
+
+.card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
+
+.card-icon {
+    width: 60px; height: 60px; background: #eff6ff;
+    color: var(--primary); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; margin-bottom: 20px;
+}
+
+/* Stats Cards */
+.about-section { display: flex; gap: 30px; margin-bottom: 40px; flex-wrap: wrap; }
+.about-card { flex: 2; background: white; padding: 40px; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.04); }
+.stats-grid { flex: 1; display: flex; flex-direction: column; gap: 20px; }
+
+.stat-card {
+    padding: 25px; border-radius: 20px; color: white;
+    display: flex; align-items: center; justify-content: space-between;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+.stat-card.weather { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); }
+.stat-card.currency { background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%); }
+
+/* Buttons */
+#recommendBtn {
+    background: var(--dark); color: white; padding: 15px 40px;
+    border-radius: 50px; border: none; font-size: 1.1rem;
+    cursor: pointer; transition: 0.3s;
+}
+#recommendBtn:hover { transform: scale(1.05); background: var(--primary); }
+
+.direction-btn {
+    display: block; text-align: center; margin-top: 20px;
+    padding: 12px; border-radius: 12px; background: #f1f5f9;
+    color: var(--text-main); font-weight: 600; transition: 0.3s;
+}
+.direction-btn:hover { background: var(--dark); color: white; }
+
+footer { text-align: center; padding: 40px; color: var(--text-muted); }
+/* --- Location Button Styling --- */
+.location-btn {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    padding: 15px 35px;
+    border-radius: 50px;
+    border: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.location-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.6);
+}
+
+.location-btn:active {
+    transform: scale(0.98);
+}
+
+.location-btn i {
+    font-size: 1.2rem;
+}
+/* --- Modern Search Bar Styling --- */
+.search-group {
+    position: relative;
+    max-width: 450px;
+    margin: 30px auto; /* Centers the bar */
+    display: flex;
+    align-items: center;
+}
+
+.search-input {
+    width: 100%;
+    padding: 18px 60px 18px 30px; /* Huge padding right for the button */
+    border-radius: 50px;
+    border: 2px solid #e2e8f0;
+    font-size: 1.05rem;
+    background: white;
+    outline: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05); /* Soft shadow */
+    font-family: 'Inter', sans-serif;
+}
+
+.search-input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 5px rgba(79, 172, 254, 0.2); /* Blue Glow */
+}
+
+.search-btn {
+    position: absolute;
+    right: 8px; /* Stick to the right inside the input */
+    top: 50%;
+    transform: translateY(-50%);
+    
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+}
+
+.search-btn:hover {
+    transform: translateY(-50%) scale(1.1); /* Pop effect */
+    box-shadow: 0 6px 15px rgba(59, 130, 246, 0.5);
+}
+
+.search-btn:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+/* --- Cleaner "OR" Divider --- */
+.or-divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #94a3b8;
+    margin: 25px 0;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.or-divider::before, .or-divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.or-divider::before { margin-right: 15px; }
+.or-divider::after { margin-left: 15px; }

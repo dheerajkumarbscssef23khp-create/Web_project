@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Buddy - AI Experience</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <section id="landing-page">
+        <div class="video-bg-overlay"></div>
+        <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-4.0.3&auto=format&fit=crop&w=2021&q=80');"></div>
+
+        <nav class="landing-nav fade-in-down">
+            <div class="logo">Travel Buddy <span class="dot">.</span></div>
+            <button class="btn-glass" onclick="enterApp()">Launch App</button>
+        </nav>
+
+        <div class="landing-content">
+            <h1 class="fade-in-up delay-1">Explore the<br>Unseen World.</h1>
+            <p class="fade-in-up delay-2">AI-powered local recommendations, real-time weather, and smart navigation in one beautiful dashboard.</p>
+            <button class="cta-button fade-in-up delay-3" onclick="enterApp()">
+                Start Your Journey <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
+
+        <div class="scroll-indicator fade-in delay-4">
+            <span>Scroll to discover</span>
+            <div class="mouse">
+                <div class="wheel"></div>
+            </div>
+        </div>
+    </section>
+
+    <div id="app-interface" style="display: none;">
+        <header>
+            <nav>
+                <div class="logo">
+                    <i class="fa-solid fa-plane-departure"></i> Travel Buddy
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#" class="active" data-page="home"><i class="fa-solid fa-house"></i> Home</a></li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="dropbtn">Explore <i class="fa-solid fa-chevron-down"></i></a>
+                        <div class="dropdown-content">
+                            <a href="#" data-page="hotels"><i class="fa-solid fa-hotel"></i> Hotels</a>
+                            <a href="#" data-page="food"><i class="fa-solid fa-utensils"></i> Food</a>
+                            <a href="#" data-page="transport"><i class="fa-solid fa-train-subway"></i> Transport</a>
+                            <a href="#" data-page="rentacar"><i class="fa-solid fa-car"></i> Rentals</a>
+                            <a href="#" data-page="safety"><i class="fa-solid fa-kit-medical"></i> Safety</a>
+                        </div>
+                    </li>
+                    <li><a href="#" data-page="ai-guide" class="btn-highlight"><i class="fa-solid fa-wand-magic-sparkles"></i> AI Guide</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main id="page-content" class="fade-in">
+            </main>
+
+        <footer>
+            <p>© 2025 Travel Buddy. Crafted with AI.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

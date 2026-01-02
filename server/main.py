@@ -1,3 +1,4 @@
+# main.py
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -179,6 +180,7 @@ def fetch_places(lat, lon, key, value):
     except:
         return []
 
+
 # ---------------- API ----------------
 @app.post("/api/recommendations", response_model=RecommendationResponse)
 def recommendations(loc: LocationRequest):
@@ -196,16 +198,5 @@ def recommendations(loc: LocationRequest):
         "transport": fetch_places(loc.latitude, loc.longitude, "amenity", "bus_station"),
     }
 
-# # ---------------- WSGI ENTRY POINT ----------------
-# application = ASGIMiddleware(app)
-from fastapi import FastAPI
-from a2wsgi import ASGIMiddleware
-
-# app = FastAPI()
-
-# @app.get("/")
-# def home():
-#     return {"status": "ok"}
-
-# application = ASGIMiddleware(app)
-
+# ---------------- WSGI ENTRY POINT ----------------
+application = ASGIMiddleware(app)

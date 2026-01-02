@@ -1,5 +1,6 @@
 // --- CONFIGURATION ---
-const API_URL = 'http://127.0.0.1:8000/api/recommendations'; 
+// const API_URL = 'http://127.0.0.1:8000/api/recommendations'; 
+const API_URL = 'https://dheerajbirjani.pythonanywhere.com/api/recommendations';
 window.travelData = null; // Global storage for fetched data
 
 const pageContent = document.getElementById('page-content');

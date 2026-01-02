@@ -228,6 +228,8 @@ async def get_recommendations(loc: LocationRequest):
         "safety": safety_items if safety_items else [{"name": "Emergency Services", "description": "Dial 112 or 911"}],
         "transport": transport if transport else [{"name": "No major stations", "description": "Look for local taxis/rickshaws"}]
     }
-
+# Add this at the end of your main.py file
+from a2wsgi import ASGIMiddleware
+wsgi_app = ASGIMiddleware(app)
 # --- HOW TO RUN ---
 # Terminal command: uvicorn main:app --reload
